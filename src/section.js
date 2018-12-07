@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
+import WeatherCard from './weatherCard.js';
+import CardNews from './CardNews.js';
 
-
-import Card from './Card.js';
 
 
 class Section extends Component {
   render() {
     return (
-      <div class="row">
-          <div class="container">
-              <div class="row">
-                  <Card/>
-              </div>
+      <div>
+        <div class="container">
+          <div class="row">
+            <div className="col-md-4">
+                <WeatherCard></WeatherCard>
+            </div>
+            <div className="col-md-4">
+                <CardNews></CardNews>
+            </div>
           </div>
+      </div>
       </div>
     )
 

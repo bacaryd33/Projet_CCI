@@ -21,7 +21,6 @@ class WeatherCard extends Component {
     const url = 'https://openweathermap.org/data/2.5/weather?lat=44.52&lon=3.5&appid=b6907d289e10d714a6e88b30761fae22';
     axios.get(url)
       .then(response => {
-        console.log(response.data);
         this.setState({
           name: response.data.name,
           weather:response.data.weather[0].description,
@@ -42,7 +41,6 @@ class WeatherCard extends Component {
 
   render() {
     return(
-      <div>
             <div className="card mb">
                 <p className="card-text" className="text-center">
                       {this.state.name}
@@ -59,7 +57,6 @@ class WeatherCard extends Component {
               </div>
                 {this.displayInfo()}
             </div>
-      </div>
         );
   }
 
