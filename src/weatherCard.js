@@ -9,9 +9,13 @@ class WeatherCard extends Component {
       name:"",
       weather:"",
       temp:"",
+      pressure:"",
+      humidity :"",
+      temperature_min :"",
+      temperature_max : "",
+      wind_speed :"",
     }
   }
-
 
   componentDidMount() {
     const url = 'https://openweathermap.org/data/2.5/weather?lat=44.52&lon=3.5&appid=b6907d289e10d714a6e88b30761fae22';
@@ -22,6 +26,12 @@ class WeatherCard extends Component {
           name: response.data.name,
           weather:response.data.weather[0].description,
           temp:response.data.main.temp,
+          pressure:response.data.main.pressure,
+          humidity:response.data.main.humidity,
+          temperature_min:response.data.main.temp_min,
+          temperature_max:response.data.main.temp_max,
+          wind_speed:response.data.wind.speed,
+          isShow : false,
         });
       })
       .catch(error => {
@@ -43,33 +53,61 @@ class WeatherCard extends Component {
                   <p className="card-text" className="text-center">
                     {String.toUpperCase(this.state.weather)}
                   </p>
-                    <div class="row justify-content-center">
-                        <button type="button" className="btn btn-primary center" data-toggle="modal" data-target="#myModal">SEE MORE -></button>
-                    </div>
+                    <div className="row justify-content-center">
+                        <button type="button" className="btn btn-primary center" onClick={this.click.bind(this)}>SEE MORE -></button>
+                  </div>
               </div>
+                {this.displayInfo()}
             </div>
-
-
-        <div className="modal" id="myModal" role="dialog">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <button type="button" className="close" data-dismiss="modal">&times;</button>
-                <h4 className="modal-title">Modal Header</h4>
-              </div>
-              <div className="modal-body">
-                <p>Some text in the modal.</p>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-
+      </div>
         );
+  }
 
+  click(){
+    if(this.state.isShow==false){
+      this.setState({
+        isShow:true,
+      })
+    }else{
+      this.setState({
+        isShow:false,
+      })
+    }
+  }
+  displayTrue(){
+    return(
+      <div>
+        <table className="table">
+                <tbody>
+                    <tr>
+                        <td>pressure</td>
+                        <td>{this.state.pressure}</td>
+                    </tr>
+                    <tr>
+                        <td>humidity</td>
+                        <td>{this.state.humidity}</td>
+                    </tr>
+                    <tr>
+                        <td>temperature min</td>
+                        <td>{this.state.temperature_min}</td>
+                    </tr>
+                    <tr>
+                        <td>temperature max</td>
+                        <td>{this.state.temperature_max}</td>
+                    </tr>
+                    <tr>
+                        <td>wind speed</td>
+                        <td>{this.state.wind_speed}</td>
+                    </tr>
+                </tbody>
+            </table>
+      </div>
+    )
+  }
+  displayInfo(){
+    if(this.state.isShow==true){
+      return this.displayTrue()
+    }
   }
 
 }
